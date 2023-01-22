@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "../node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
-import "../node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./@openzeppelin/contracts/access/Ownable.sol";
+import "./@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 contract TestContract is ReentrancyGuard, Ownable {
     IERC20 public gameToken;
@@ -66,7 +66,9 @@ contract TestContract is ReentrancyGuard, Ownable {
         return true;
     }
 
-    function distributeRewards(Rewards[] memory playerArray) external {
+    function distributeRewards(
+        Rewards[] memory playerArray
+    ) external onlyOwner {
         require(msg.sender == server, "Only server can call this function!");
         Fees memory fees = gameFees;
         // Adds up the amount to be burned and then sends to deadAddress at the end of the loop
