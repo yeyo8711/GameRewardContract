@@ -10,7 +10,7 @@ async function main() {
   const TestContract = await hre.ethers.getContractFactory("TestContract");
   const testContract = await TestContract.deploy(
     testToken.address,
-    addresses.module.creatorAddress,
+    
     addresses.module.devWallet
   );
 

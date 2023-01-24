@@ -9,7 +9,7 @@ const provider = new ethers.providers.JsonRpcProvider(
   "https://rpc.ankr.com/bsc_testnet_chapel"
 );
 const wallet = new ethers.Wallet(process.env.PK, provider);
-const wallet2 = new ethers.Wallet(process.env.PK2, provider);
+
 const testToken = new ethers.Contract(
   addresses.module.gameTokenAddress,
   tokenAbi,
@@ -20,23 +20,14 @@ const testContract = new ethers.Contract(
   testAbi,
   wallet
 );
-const testContract2 = new ethers.Contract(
-  addresses.module.testContractAddress,
-  testAbi,
-  wallet2
-);
 
 // Helpers
 const toWei = (amount) => ethers.utils.parseEther(amount.toString());
 const fromWei = (amount) => ethers.utils.formatEther(amount);
 
 const main = async () => {
-  /* const tx = await testContract.spawn();
-  await tx.wait();
-  console.log(tx); */
-  /* console.log(
-    ethers.utils.formatUnits(await testContract.lives(wallet.address), 0)
-  ); */
-  await testToken.approve(testContract.address, toWei(50000));
+  await testContract.transferOwnership(
+    "0x8fbd94f1ad075b60f0650b929bf0ea461f1c4711"
+  );
 };
 main();

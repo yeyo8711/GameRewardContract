@@ -139,4 +139,23 @@ describe("Rewards Contract", function () {
       toWei(240)
     );
   });
+  it("Changes Fees", async function () {
+    await RewardContract.updateFees([
+      100,
+      75,
+      80,
+      4,
+      4,
+      12,
+      devAccount.address,
+    ]);
+    const feeStruct = await RewardContract.gameFees();
+    expect(feeStruct.lifeCost).to.equal(100);
+    expect(feeStruct.killValue).to.equal(75);
+    expect(feeStruct.headShotValue).to.equal(80);
+    expect(feeStruct.burnFee).to.equal(4);
+    expect(feeStruct.creatorFee).to.equal(4);
+    expect(feeStruct.devFee).to.equal(12);
+    expect(feeStruct.devAddress).to.equal(devAccount.address);
+  });
 });
